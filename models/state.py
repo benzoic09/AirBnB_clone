@@ -1,17 +1,14 @@
 #!/usr/bin/python3
-"""user module
+"""state module
 """
 from models.base_model import BaseModel
 
 
-class User(BaseModel):
-    """user class
+class State(BaseModel):
+    """state class
     """
-    class_name = "User"
-    email = ""
-    password = ""
-    first_name = ""
-    last_name = ""
+    class_name = "State"
+    name = ""
 
     def __init__(self, *args, **kwargs):
         super().__init__(self, *args, **kwargs)

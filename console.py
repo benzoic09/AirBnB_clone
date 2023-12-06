@@ -3,6 +3,12 @@
 """
 import cmd
 from models.base_model import BaseModel
+from models.user import User
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.place import Place
+from models.review import Review
 from models import storage
 
 
@@ -10,7 +16,17 @@ class HBNBCommand(cmd.Cmd):
     """console class for HBNB; AirBnb clone
     """
     available_dictionary = {"BaseModel": BaseModel, "User": User}
+    available_dictionary["State"] = State
+    available_dictionary["City"] = City
+    available_dictionary["Amenity"] = Amenity
+    available_dictionary["Place"] = Place
+    available_dictionary["Review"] = Review
     available_names = ['BaseModel', 'User']
+    available_names.append('State')
+    available_names.append('City')
+    available_names.append('Amenity')
+    available_names.append('Place')
+    available_names.append('Review')
     prompt = "(hbnb)"
 
     def do_quit(self, line):
@@ -43,7 +59,8 @@ class HBNBCommand(cmd.Cmd):
             print(dummy.id)
 
     def do_show(self, line):
-        """ Prints the string representation of an instance based on the class name and id
+        """ Prints the string representation of an instance
+        based on the class name and id
         """
         if not line:
             print("** class name missing **")
@@ -66,7 +83,8 @@ class HBNBCommand(cmd.Cmd):
                     print(actual_object)
 
     def do_destroy(self, line):
-        """Deletes an instance based on the class name and id and saves the changes into the JSON file
+        """Deletes an instance based on the class name
+        and id and saves the changes into the JSON file
         """
         if not line:
             print("** class name missing **")
@@ -88,7 +106,8 @@ class HBNBCommand(cmd.Cmd):
                     storage.save()
 
     def do_all(self, line):
-        """Prints all string representation of all instances based or not on the class name. Ex: $ all BaseModel or $ all
+        """Prints all string representation of all instances
+        based or not on the class name. Ex: $ all BaseModel or $ all
         """
         if line and line not in self.available_names:
             print("** class doesn't exist **")
@@ -102,7 +121,7 @@ class HBNBCommand(cmd.Cmd):
             else:
                 for key, value in obj_dictionary.items():
                     new_dictionary[key] = value
-            # next we iterate over new_dictionary.values() calling __str__ on it
+            # next we iterate new_dictionary.values() calling __str__ on it
             ls = []
             for value in new_dictionary.values():
                 ls.append(value.__str__())
@@ -112,7 +131,8 @@ class HBNBCommand(cmd.Cmd):
                 print(ls)
 
     def do_update(self, line):
-        """Updates an instance based on the class name and id by adding or updating attribute and saves the change into the JSON file
+        """Updates an instance based on the class name and id
+        by adding/updating attribute and saves the change into the JSON file
         """
         parts = line.split()
         # if not line:
@@ -135,7 +155,7 @@ class HBNBCommand(cmd.Cmd):
                 """
                 _name = parts[0]
                 _id = parts[1]
-                unique_id = _name+ "." + _id
+                unique_id = _name + "." + _id
                 obj_dictionary = storage.all()
                 if unique_id not in obj_dictionary.keys():
                     print("** no instance found **")
@@ -150,13 +170,6 @@ class HBNBCommand(cmd.Cmd):
                 _value = parts[3]
                 unique_id = _name + "." + _id
                 obj_dictionary = storage.all()
-                """for key in obj_dictionary.keys():
-                    flag = 0
-                    if unique_id == key:
-                        flag = 1
-                if flag == 0:
-                    print("** no instance found **")
-                """
                 if _key == "My_Number":
                     """type cast to correct attribute name
                     """
@@ -164,10 +177,6 @@ class HBNBCommand(cmd.Cmd):
                 unique_object = obj_dictionary[unique_id]
                 setattr(unique_object, _key, _value)
                 unique_object.save()
-                """unique_object_dictionary = unique_object.to_dict()
-                unique_object_dictionary[_key] = _value
-                unique_object.save()
-                """
 
 
 if __name__ == "__main__":
