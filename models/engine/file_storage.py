@@ -41,7 +41,7 @@ class FileStorage:
         If json file doesn't exixt, do nothing
         """
         from models.base_model import BaseModel
-        self.__mapping = {"BaseModel": BaseModel}
+        self.__mapping = {"BaseModel": BaseModel, "User": User}
         if os.path.isfile(self.__file_path):
             with open(self.__file_path, 'r', encoding='utf-8') as f:
                 temp1 = f.read()
