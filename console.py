@@ -170,10 +170,12 @@ class HBNBCommand(cmd.Cmd):
                 _value = parts[3]
                 unique_id = _name + "." + _id
                 obj_dictionary = storage.all()
-                if _key == "My_Number":
-                    """type cast to correct attribute name
-                    """
-                    _val = int(_val)
+                if _value.isdigit():
+                    _value = int(_value)
+                else:
+                    check = _value.split(".")
+                    if check[0].isdigit() and check[1].isdigit():
+                        _value = float(_value)
                 unique_object = obj_dictionary[unique_id]
                 setattr(unique_object, _key, _value)
                 unique_object.save()
