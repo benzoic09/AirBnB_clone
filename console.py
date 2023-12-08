@@ -180,6 +180,53 @@ class HBNBCommand(cmd.Cmd):
                 setattr(unique_object, _key, _value)
                 unique_object.save()
 
+    def default(self, line):
+        """called when no argument matches the above
+        """
+        part = line.split('.')
+        classname = part[0]
+        if len(part) > 1:
+            command = part[1]
+            if command.startswith("all"):
+                HBNBCommand.do_all(self, classname)
+            elif command.startswith("count"):
+                val = 0
+                obj_dictionary = storage.all()
+                for key in obj_dictionary.keys():
+                    if key.startswith(classname):
+                        val += 1
+                print(val)
+            elif command.startswith("show"):
+                arg1 = classname
+                id_ = command.strip('show')
+                id_ = id_.strip('()')
+                actual_line = arg1 + " " + id_
+                HBNBCommand.do_show(self, actual_line)
+            elif command.startswith("destroy"):
+                arg1 = classname
+                id_ = command.strip("destroy")
+                id_ = id_.strip("()")
+                actual_line = arg1 + " " + id_
+                HBNBCommand.do_destroy(self, actual_line)
+            elif command.startswith("update"):
+                line1 = classname
+                parts = command.split(',')
+                id_attr = ''
+                name_attr = ''
+                val_attr = ''
+                if len(parts) == 3:
+                    id_attr = parts[0]
+                    id_attr = id_attr.strip('update')
+                    id_attr = id_attr.strip('()')
+                    name_attr = parts[1]
+                    val_attr = parts[2]
+                actual_line = line1 + " " + id_attr + " " + name_attr + " " + val_attr
+                HBNBCommand.do_update(self, actual_line)
+            else:
+                self.stdout.write('*** Unknown syntax: {}\n'.format(line))
+        else:
+            self.stdout.write('*** Unknown syntax: {}\n'.format(line))
+
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
