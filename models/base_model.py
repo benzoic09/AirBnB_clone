@@ -41,12 +41,6 @@ class BaseModel:
                     self.updated_at = val
                 else:
                     setattr(self, key, value)
-                """elif key == 'id':
-                    self.id = value
-                elif key == 'name':
-                    self.name = value
-                elif key == 'my_number':
-                    self.my_number = value"""
         else:
             self.id = str(uuid.uuid4())
             self.created_at = datetime.now()
@@ -70,10 +64,14 @@ class BaseModel:
         __dict__ of the particular instance
         """
         dictionary = {}
-        for key, value in self.__dict__.items():
+        """for key, value in self.__dict__.items():
             if key == 'created_at' or key == 'updated_at':
                 dictionary[key] = value.isoformat()
             else:
                 dictionary[key] = value
-        dictionary['__class__'] = self.class_name
+        dictionary['__class__'] = self.class_name"""
+        dictionary = self.__dict__.copy()
+        for key, value in dictionary.items():
+            if key == 'created_at' or key == 'updated_at':
+                dictionary[key] = value.isoformat()
         return dictionary
