@@ -216,10 +216,12 @@ class HBNBCommand(cmd.Cmd):
                 val_attr = ''
                 if len(parts) == 3:
                     id_attr = parts[0]
-                    id_attr = id_attr.strip('update')
-                    id_attr = id_attr.strip('()')
+                    """id_attr = id_attr.strip('update')
+                    id_attr = id_attr.strip('()')"""
+                    id_attr = id_attr.strip('update(')
                     name_attr = parts[1]
                     val_attr = parts[2]
+                    val_attr = vall_attr.strip(")")
                 actual_line = line1 + " " + id_attr + " " + name_attr + " " + val_attr
                 HBNBCommand.do_update(self, actual_line)
             else:
