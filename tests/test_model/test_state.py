@@ -64,3 +64,9 @@ class TestState(unittest.TestCase):
         self.assertEqual(type(TestState.my_model_1.created_at), datetime)
         self.assertEqual(type(TestState.my_model_1.updated_at), datetime)
         self.assertEqual(type(TestState.my_model_1.id), str)
+
+    def test_attribute_type(self):
+        """tests an attribute type of an instance
+        """
+        dummy = State()
+        self.assertTrue(isinstance(dummy.name, str))

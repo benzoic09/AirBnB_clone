@@ -64,3 +64,10 @@ class TestPlace(unittest.TestCase):
         self.assertEqual(type(TestPlace.my_model_1.created_at), datetime)
         self.assertEqual(type(TestPlace.my_model_1.updated_at), datetime)
         self.assertEqual(type(TestPlace.my_model_1.id), str)
+
+    def test_attribute_type(self):
+        """tests an instance type
+        """
+        dummy = Place()
+        dummy.price_by_night = 100
+        self.assertTrue(type(dummy.price_by_night), int)

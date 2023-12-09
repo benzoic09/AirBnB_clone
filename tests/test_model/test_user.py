@@ -64,3 +64,15 @@ class TestUser(unittest.TestCase):
         self.assertEqual(type(TestUser.my_model_1.created_at), datetime)
         self.assertEqual(type(TestUser.my_model_1.updated_at), datetime)
         self.assertEqual(type(TestUser.my_model_1.id), str)
+
+    def test_instance_type(self):
+        """tests an instance type
+        """
+        self.assertTrue(isinstance(TestUser.my_model_1, User))
+
+    def test_assigned_attribute(self):
+        """tests assigned attributes
+        """
+        dummy = User()
+        dummy.first_name = 'test'
+        self.assertTrue(isinstance(dummy.first_name, str))

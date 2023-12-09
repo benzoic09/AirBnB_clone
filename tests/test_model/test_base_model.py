@@ -64,3 +64,8 @@ class TestBaseModel(unittest.TestCase):
         self.assertEqual(type(TestBaseModel.my_model_1.created_at), datetime)
         self.assertEqual(type(TestBaseModel.my_model_1.updated_at), datetime)
         self.assertEqual(type(TestBaseModel.my_model_1.id), str)
+
+    def test_instance_type(self):
+        """test instance type
+        """
+        self.assertTrue(isinstance(TestBaseModel.my_model_1, BaseModel))
