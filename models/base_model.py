@@ -64,14 +64,10 @@ class BaseModel:
         __dict__ of the particular instance
         """
         dictionary = {}
-        """for key, value in self.__dict__.items():
+        for key, value in self.__dict__.items():
             if key == 'created_at' or key == 'updated_at':
                 dictionary[key] = value.isoformat()
             else:
                 dictionary[key] = value
-        dictionary['__class__'] = self.class_name"""
-        dictionary = self.__dict__.copy()
-        for key, value in dictionary.items():
-            if key == 'created_at' or key == 'updated_at':
-                dictionary[key] = value.isoformat()
+        dictionary['__class__'] = self.class_name
         return dictionary
