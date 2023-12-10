@@ -5,7 +5,8 @@ import uuid
 from datetime import datetime
 from datetime import date
 from datetime import time
-from models import FileStorage
+from models.engine.file_storage import FileStorage
+from models import storage
 
 
 class BaseModel:
